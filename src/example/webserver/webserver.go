@@ -5,8 +5,6 @@ import (
     "flag"
     "fmt"
     "net/http"
-    "payment_center/core/account"
-    "payment_center/core/transaction"
     "runtime"
     "time"
 )
@@ -38,107 +36,24 @@ func paymentCenter(w http.ResponseWriter, r *http.Request) {
         } else {
             switch cmd["func"] {
             case "core.account.Create":
-                password := args["password"].(string)
-                a, err := account.NewAccount(password, 1)
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": a.Id}
-                    result.Time = time.Now().Unix()
-                }
-
+                coreAccountCreate(args, result)
             case "core.account.AccountFreeze":
-                aid := args["aid"].(float64)
-                freeze := args["freeze"].(float64)
-                reason := args["reason"].(string)
-                af, err := account.NewAccountFreeze(int64(aid), byte(freeze), reason)
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": af.Id}
-                    result.Time = time.Now().Unix()
-                }
+                coreAccountAccountFreeze(args, result)
             case "core.account.Recharge":
-                aid := args["aid"].(float64)
-                amount := args["amount"].(float64)
-                r, err := account.NewRecharge(int64(aid), int64(amount))
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": r.Id}
-                    result.Time = time.Now().Unix()
-                }
+                coreAccountRecharge(args, result)
             case "core.account.Withdrawals":
-                aid := args["aid"].(float64)
-                amount := args["amount"].(float64)
-                w, err := account.NewWithdrawals(int64(aid), int64(amount))
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": w.Id}
-                    result.Time = time.Now().Unix()
-                }
+                coreAccountWithdrawals(args, result)
             case "core.account.Transfer":
-                payerid := args["payerid"].(float64)
-                payeeid := args["payeeid"].(float64)
-                amount := args["amount"].(float64)
-                t, err := account.NewTransfer(int64(payerid), int64(payeeid), int64(amount))
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": t.Id}
-                    result.Time = time.Now().Unix()
-                }
-            case "extension.account.Mapping":
-                result.Res = 0
-                result.Error = fmt.Sprintf("%v", err)
-                result.Time = time.Now().Unix()
+                coreAccountTransfer(args, result)
+            /*case "extension.account.Mapping":
+              switchDefault(result)*/
             case "transaction.Payment":
-                payerid := args["payerid"].(float64)
-                payeeid := args["payeeid"].(float64)
-                amount := args["amount"].(float64)
-                p, err := transaction.NewPayment(int64(payerid), int64(payeeid), int64(amount))
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": p.Id}
-                    result.Time = time.Now().Unix()
-                }
+                coreAccountPayment(args, result)
             case "transaction.Receivables":
-                payeeid := args["payeeid"].(float64)
-                payerid := args["payerid"].(float64)
-                amount := args["amount"].(float64)
-                r, err := transaction.NewReceivables(int64(payeeid), int64(payerid), int64(amount))
-                if err != nil {
-                    result.Res = 0
-                    result.Error = fmt.Sprintf("%v", err)
-                    result.Time = time.Now().Unix()
-                } else {
-                    result.Res = 1
-                    result.Data = map[string]int64{"id": r.Id}
-                    result.Time = time.Now().Unix()
-                }
+                coreAccountReceivables(args, result)
             default:
                 result.Res = 0
-                result.Error = "无此命令"
+                result.Error = "无此命令:" + fmt.Sprintf("%v", cmd["func"])
                 result.Time = time.Now().Unix()
             }
         }
