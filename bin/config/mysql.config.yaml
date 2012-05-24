@@ -1,0 +1,8 @@
+#数据库 -- mysql
+Host          : 192.168.0.14
+Port           : 3306
+Name        : payment_center
+User          : payment_center
+Password      : payment_center
+Pretable        : pc_
+Charset         : utf8

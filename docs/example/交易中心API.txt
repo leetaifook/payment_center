@@ -1,0 +1,30 @@
+请求：JSON String => {func:[FUNC], args:[ARGS], time:[TIME]}
+回复：JSON String => {result:[RESULT], data:[DATA], error:[MESSAGE], time:[TIME]}
+
+例子:(创建用户)
+    格式化core.account.Create(password string)
+    CMDJSON:{"func":"core.account.Create", "args":{"password":"123456"}}
+    HOST:192.168.0.1:80
+    REQUEST:/api
+    QUERY:?cmd=[CMDJSON]
+    RESPONSE:
+        成功:{"result":1, "data":{"id":1}, "error":"", "time":1337584571}
+        失败:{"result":0, "data":"", "error":"失败原因", "time":1337584771}
+账户
+    创建
+    func core.account.Create(password string) (string)
+    冻结
+    func core.account.AccountFreeze(aid int, freeze int, reason string) (string)
+    充值
+    func core.account.Recharge(aid, amount int) (string)
+    提现
+    func core.account.Withdrawals(aid, amount int) (string)
+    转账
+    func core.account.Transfer(payerid, payeeid, amount int) (string)
+    账户绑定
+    func extension.account.Mapping(aid int, object string) (string)
+交易
+    付款
+    func transaction.Payment(payerid, payeeid, amount int) (string)
+    收款
+    func transaction.Receivables(payeeid, payerid, amount int) (string)
