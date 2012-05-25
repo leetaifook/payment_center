@@ -6,6 +6,7 @@ import (
     "time"
 )
 
+//Amount使用bigint设置，不使用浮点型，是根据现实情况，一般精度交易只会到厘，所以如果表现形式是元的话，可以输入时乘以1000，输出时除以1000来换算
 type Account struct {
     Id                int64
     Password          string

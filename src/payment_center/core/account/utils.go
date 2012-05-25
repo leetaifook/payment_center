@@ -30,6 +30,13 @@ func NewAccount(password string, currency byte) (*Account, error) {
     return a, err
 }
 
+func AccountInfo(aid int64) (Account, error) {
+    a := &Account{Id: aid}
+    err := a.Get()
+
+    return *a, err
+}
+
 func NewRecharge(aid, amount int64) (*Recharge, error) {
     begin()
     r := &Recharge{
