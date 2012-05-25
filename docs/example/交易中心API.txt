@@ -1,30 +1,34 @@
-ÇëÇó£ºJSON String => {func:[FUNC], args:[ARGS], time:[TIME]}
-»Ø¸´£ºJSON String => {result:[RESULT], data:[DATA], error:[MESSAGE], time:[TIME]}
+è¯·æ±‚ï¼šJSON String => {func:[FUNC], args:[ARGS], time:[TIME]}
+å›å¤ï¼šJSON String => {result:[RESULT], data:[DATA], error:[MESSAGE], time:[TIME]}
 
-Àı×Ó:(´´½¨ÓÃ»§)
-    ¸ñÊ½»¯core.account.Create(password string)
+ä¾‹å­:(åˆ›å»ºç”¨æˆ·)
+    æ ¼å¼åŒ–core.account.Create(password string)
     CMDJSON:{"func":"core.account.Create", "args":{"password":"123456"}}
     HOST:192.168.0.1:80
     REQUEST:/api
     QUERY:?cmd=[CMDJSON]
     RESPONSE:
-        ³É¹¦:{"result":1, "data":{"id":1}, "error":"", "time":1337584571}
-        Ê§°Ü:{"result":0, "data":"", "error":"Ê§°ÜÔ­Òò", "time":1337584771}
-ÕË»§
-    ´´½¨
+        æˆåŠŸ:{"result":1, "data":{"id":1}, "error":"", "time":1337584571}
+        å¤±è´¥:{"result":0, "data":"", "error":"å¤±è´¥åŸå› ", "time":1337584771}
+è´¦æˆ·
+    åˆ›å»º
     func core.account.Create(password string) (string)
-    ¶³½á
+    æŸ¥çœ‹è´¦æˆ·ä¿¡æ¯
+    func core.account.Info(aid int) (string)
+    è´¦æˆ·å†»ç»“
     func core.account.AccountFreeze(aid int, freeze int, reason string) (string)
-    ³äÖµ
+    èµ„é‡‘å†»ç»“
+    func core.account.FundsFreeze(aid, amount int, freeze int, reason string) (string)
+    å……å€¼
     func core.account.Recharge(aid, amount int) (string)
-    ÌáÏÖ
+    æç°
     func core.account.Withdrawals(aid, amount int) (string)
-    ×ªÕË
+    è½¬è´¦
     func core.account.Transfer(payerid, payeeid, amount int) (string)
-    ÕË»§°ó¶¨
+    è´¦æˆ·ç»‘å®š
     func extension.account.Mapping(aid int, object string) (string)
-½»Ò×
-    ¸¶¿î
+äº¤æ˜“
+    ä»˜æ¬¾
     func transaction.Payment(payerid, payeeid, amount int) (string)
-    ÊÕ¿î
+    æ”¶æ¬¾
     func transaction.Receivables(payeeid, payerid, amount int) (string)
