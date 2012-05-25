@@ -37,16 +37,18 @@ func paymentCenter(w http.ResponseWriter, r *http.Request) {
             switch cmd["func"] {
             case "core.account.Create":
                 coreAccountCreate(args, result)
+            case "core.account.Info":
+                coreAccountInfo(args, result)
             case "core.account.AccountFreeze":
                 coreAccountAccountFreeze(args, result)
+            case "core.account.FundsFreeze":
+                coreAccountFundsFreeze(args, result)
             case "core.account.Recharge":
                 coreAccountRecharge(args, result)
             case "core.account.Withdrawals":
                 coreAccountWithdrawals(args, result)
             case "core.account.Transfer":
                 coreAccountTransfer(args, result)
-            /*case "extension.account.Mapping":
-              switchDefault(result)*/
             case "transaction.Payment":
                 coreAccountPayment(args, result)
             case "transaction.Receivables":
